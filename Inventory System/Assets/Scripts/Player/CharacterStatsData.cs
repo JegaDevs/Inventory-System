@@ -7,10 +7,10 @@ namespace Jega.BlueGravity
     [CreateAssetMenu(menuName = "Jega/CharacterStats")]
     public class CharacterStatsData : ScriptableObject
     {
-        [SerializeField] private float horizontalVelocity;
-        [SerializeField] private float verticalVelocity;
+        [SerializeField] private float movementVelocity;
+        [SerializeField] private float rotationVelocity;
 
-        public float HorizontalVelocity => horizontalVelocity;
-        public float VerticalVelocity => verticalVelocity;
+        public float MovementVelocity => movementVelocity;
+        public float RotationVelocity => rotationVelocity;
     }
 }
