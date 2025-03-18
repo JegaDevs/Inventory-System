@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Jega.BlueGravity
+namespace Jega
 {
     [CreateAssetMenu(menuName = "Jega/CharacterStats")]
     public class CharacterStatsData : ScriptableObject

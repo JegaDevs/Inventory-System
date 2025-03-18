@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using JegaCore;
 
-namespace Jega.BlueGravity
+namespace Jega
 {
     [RequireComponent((typeof(Rigidbody)))]
     public class CharacterController : MonoBehaviour
