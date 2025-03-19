@@ -5,6 +5,7 @@ namespace Jega.InventorySystem
         protected override void Awake()
         {
             base.Awake();
+            sessionService.RegisterActiveClientInventory(this);
             DragAndDropItem.OnAddToBackpack += AddItemToInventory;
         }
 
@@ -17,16 +18,6 @@ namespace Jega.InventorySystem
         private void AddItemToInventory(InventoryItem item)
         {
             GainItemAmount(item, 1);
-        }
-
-        protected override void OnEnable()
-        {
-            base.OnEnable();
-            sessionService.RegisterActiveClientInventory(this);
-        }
-        private void OnDisable()
-        {
-            sessionService.UnregisterClientShopInventory();
         }
     }
 }

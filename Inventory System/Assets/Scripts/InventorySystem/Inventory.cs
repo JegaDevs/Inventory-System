@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using UnityEngine;
 using JegaCore;
+using UnityEngine.Events;
 
 namespace Jega.InventorySystem
 {
     /// <summary>
-    /// Generic Inventory class. Handles all main slot management logic, shouldbe used 
+    /// Generic Inventory class. Handles all main slot management logic, should be used 
     /// as a base class for inventory variants.
     /// </summary>
     public class Inventory : MonoBehaviour
@@ -19,10 +20,15 @@ namespace Jega.InventorySystem
         [SerializeField] private Transform slotsParent;
         [SerializeField] private InventorySlot slotPrefab;
 
-        [SerializeField]protected List<Slot> slots;
+        [SerializeField] protected List<Slot> slots;
+        [SerializeField] private UnityEvent OnServerAddItemSuccess;
+        [SerializeField] private UnityEvent OnServerAddItemFail;
+        [SerializeField] private UnityEvent OnServerRemoveItemSuccess;
+        [SerializeField] private UnityEvent OnServerRemoveFail;
         protected SessionService sessionService;
 
         public string InventorySaveKey => inventoryData.inventorySaveKey;
+        public List<Slot> Slots => new List<Slot>(slots);
         protected ReadOnlyCollection<InventoryItem> ItemCollection => inventoryData.itemCollection.Collection;
         protected int NumberOfSlots => inventoryData.numberOfSlots;
         private List<StartingItem> StartingItems => inventoryData.startingItems;
@@ -176,6 +182,7 @@ namespace Jega.InventorySystem
                     }
                 }
             }
+            ServerService.Service.RequestServerItemEvent(item, () => OnServerAddItemSuccess.Invoke(), () => OnServerAddItemFail.Invoke());
         }
         protected virtual void LoseItemAmount(InventoryItem item, int amount)
         {
@@ -184,6 +191,7 @@ namespace Jega.InventorySystem
             int newOwned = previousOwned - amount;
             item.SetCustomSavedAmount(InventorySaveKey, newOwned);
             UpdateTargetSlot(slotIndex);
+            ServerService.Service.RequestServerItemEvent(item, null, null);
         }
         #endregion
 
