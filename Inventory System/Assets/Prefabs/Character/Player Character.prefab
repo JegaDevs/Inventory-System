@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 539455146650180988}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Items
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +47,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2006455790226841771}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,7 +84,7 @@ GameObject:
   - component: {fileID: 6657928211035960457}
   - component: {fileID: 8655061180705290019}
   - component: {fileID: 6922373121192736986}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -233,7 +233,7 @@ GameObject:
   - component: {fileID: 1997782505784674112}
   - component: {fileID: 8294926892870260849}
   - component: {fileID: 5825205303248922369}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Backpack
   m_Icon: {fileID: 0}
@@ -320,7 +320,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -338,7 +338,7 @@ GameObject:
   - component: {fileID: 3501985227760111402}
   - component: {fileID: 6919499517386750403}
   - component: {fileID: 1828349256796824104}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Backpack Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -522,7 +522,7 @@ GameObject:
   - component: {fileID: 7377494286820065978}
   - component: {fileID: 7823133440665537081}
   - component: {fileID: 1671535038359767948}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Item (0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -597,7 +597,7 @@ GameObject:
   - component: {fileID: 1612002710456648512}
   - component: {fileID: 5954337368634064720}
   - component: {fileID: 8296870142995176456}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Item (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -673,7 +673,7 @@ GameObject:
   - component: {fileID: 8770161234012164851}
   - component: {fileID: 527965229102497236}
   - component: {fileID: 4263847418710163112}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Backpack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -731,6 +731,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbada8790dde71642aa5703d34188deb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isManualCalling: 0
   outlineMaterial: {fileID: 2100000, guid: 6537bc776b8ee0e4b8c7014105d0eff5, type: 2}
 --- !u!54 &4263847418710163112
 Rigidbody:
@@ -970,7 +971,7 @@ GameObject:
   - component: {fileID: 1663872712292612188}
   - component: {fileID: 4726525651854930569}
   - component: {fileID: 7580883508294748224}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Item (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1042,6 +1043,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4203771141379709900}
     m_Modifications:
+    - target: {fileID: 2510878380669322027, guid: 31741d5b9a46f3444909cdf7dc28f50b, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2692253434349305524, guid: 31741d5b9a46f3444909cdf7dc28f50b, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3366963671898405362, guid: 31741d5b9a46f3444909cdf7dc28f50b, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4264135874002907444, guid: 31741d5b9a46f3444909cdf7dc28f50b, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1125,6 +1138,14 @@ PrefabInstance:
     - target: {fileID: 5477516938423447606, guid: 31741d5b9a46f3444909cdf7dc28f50b, type: 3}
       propertyPath: m_Name
       value: Inventory Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 5477516938423447606, guid: 31741d5b9a46f3444909cdf7dc28f50b, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8962608343294456840, guid: 31741d5b9a46f3444909cdf7dc28f50b, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

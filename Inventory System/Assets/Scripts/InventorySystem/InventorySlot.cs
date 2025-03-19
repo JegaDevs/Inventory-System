@@ -7,7 +7,7 @@ using JegaCore;
 
 namespace Jega.InventorySystem
 {
-    public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+    public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         public static SlotSwitch OnRequestOwnedSlotsSwitch;
         public static ItemTransaction OnItemRemoved;
@@ -53,7 +53,7 @@ namespace Jega.InventorySystem
             inventoryManager = inventory;
             inventoryManager.OnSlotUpdated += UpdateInfo;
         }
-        public void UpdateInfo(Inventory inventory, InventorySlot slot, Inventory.StartingItem startingItem, int slotIndex)
+        private void UpdateInfo(Inventory inventory, InventorySlot slot, Inventory.StartingItem startingItem, int slotIndex)
         {
             if (slot != this) return;
 
@@ -64,34 +64,15 @@ namespace Jega.InventorySystem
             this.slotIndex = slotIndex;
             OnSlotUpdated?.Invoke();
         }
-
-        #region Draging Behavior
-        public async void OnBeginDrag(PointerEventData eventData)
+        public void ReleaseItem()
         {
             if (isEmpty) return;
             dragAndDropItem = Instantiate(inventoryItem.Prefab, sessionService.ItemsParent).GetComponent<DragAndDropItem>();
-            dragAndDropItem.transform.position = sessionService.BackpackTransform.position;
-            dragAndDropItem.OnMouseDown();
-            dragAndDropItem.GetComponent<OutlineOnHover>().OnMouseEnter();
-        }
-
-        public void OnDrag(PointerEventData eventData)
-        {
-            if (isEmpty) return;
-            dragAndDropItem.OnMouseDrag();
-        }
-
-        public void OnEndDrag(PointerEventData eventData)
-        {
-            if (isEmpty) return;
-            dragAndDropItem.OnMouseUp();
+            dragAndDropItem.transform.position = sessionService.BackpackTransform.position + (Vector3.up * 2f);
             dragAndDropItem = null;
             OnItemRemoved?.Invoke(inventoryItem, 1);
         }
-
-        #endregion
-
-        #region Shop Interactions
+        
         public void OnPointerEnter(PointerEventData eventData)
         {
             if (isEmpty) return;
@@ -113,6 +94,6 @@ namespace Jega.InventorySystem
             if (isEmpty)
                 OnPointerExitEvent?.Invoke();
         }
-        #endregion
+        
     }
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Jega.InventorySystem;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Jega
 {
@@ -47,10 +48,42 @@ namespace Jega
             if(Physics.Raycast(ray, out hit))
             {
                 if (Input.GetMouseButtonDown(0) && hit.collider.CompareTag("Backpack"))
-                    InventoryToggle.SetActive(!InventoryToggle.activeSelf);
+                    StartCoroutine(InventoryOpenCoroutine());
             }
         }
 
+        private IEnumerator InventoryOpenCoroutine()
+        {
+            InventoryToggle.SetActive(true);
+            while (Input.GetMouseButton(0) == true)
+                yield return null;
+        
+            finish();
+        }
+
+        private void finish()
+        {
+            var myCustomPointerData = new PointerEventData(EventSystem.current)
+            {
+                position = Input.mousePosition
+            };
+            List<RaycastResult> resultList = new List<RaycastResult>();
+
+            EventSystem.current.RaycastAll(myCustomPointerData, resultList);
+            if (resultList.Count > 0)
+            {
+                foreach (var hit in resultList)
+                {
+                    if (hit.gameObject.TryGetComponent(out InventorySlot slot))
+                    {
+                        slot.ReleaseItem();
+                        break;
+                    }
+                }
+            }
+            InventoryToggle.SetActive(false);
+        }
+        
         private void UpdateBackpackVisuals() => UpdateBackpackVisuals(SessionService.Service.CurrentClientInventory, null, default, 0);
         private void UpdateBackpackVisuals(Inventory inventory, InventorySlot slotAdded, Inventory.StartingItem startingitem, int slotindex)
         {
