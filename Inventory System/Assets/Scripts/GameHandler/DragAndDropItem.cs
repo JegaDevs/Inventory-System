@@ -13,19 +13,21 @@ namespace Jega
         
         [SerializeField] private InventoryItem item;
         
-        private Camera mainCamera;
         private Transform backpack;
-        private Vector3 mousePosition;
+        private Camera mainCamera;
+        private OutlineOnHover outlineOnHover;
+        
         private Collider bodyCollider;
         private Rigidbody rb;
-        
         private RaycastHit[] hits;
+        private Vector3 mousePosition;
 
         private void Awake()
         {
             hits = new RaycastHit[5];
             rb = GetComponent<Rigidbody>();
             bodyCollider = GetComponentInChildren<Collider>();
+            outlineOnHover = GetComponent<OutlineOnHover>();
         }
 
 
@@ -49,6 +51,7 @@ namespace Jega
             mousePosition = Input.mousePosition - GetScreenPosition();
             transform.rotation = Quaternion.identity;
             rb.isKinematic = true;
+            outlineOnHover.ToggleOutline(true);
             bodyCollider.isTrigger = true;
             Cursor.visible = false;
         }
@@ -86,7 +89,19 @@ namespace Jega
             {
                 rb.isKinematic = false;
                 bodyCollider.isTrigger = false;
+                outlineOnHover.ToggleOutline(false);
             }
+        }
+        
+        private void OnMouseEnter()
+        {
+            outlineOnHover.ToggleOutline(true);
+        }
+
+        private void OnMouseExit()
+        {
+            if(Cursor.visible)
+                outlineOnHover.ToggleOutline(false);
         }
     }
 }

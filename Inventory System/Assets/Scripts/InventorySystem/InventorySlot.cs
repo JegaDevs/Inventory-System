@@ -72,6 +72,7 @@ namespace Jega.InventorySystem
             dragAndDropItem = Instantiate(inventoryItem.Prefab, sessionService.ItemsParent).GetComponent<DragAndDropItem>();
             dragAndDropItem.transform.position = sessionService.BackpackTransform.position;
             dragAndDropItem.OnMouseDown();
+            dragAndDropItem.GetComponent<OutlineOnHover>().OnMouseEnter();
         }
 
         public void OnDrag(PointerEventData eventData)
