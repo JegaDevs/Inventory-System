@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using JegaCore;
+using UnityEngine.Serialization;
 
 namespace Jega.InventorySystem
 {
@@ -13,14 +14,12 @@ namespace Jega.InventorySystem
     {
         [SerializeField] private Image iconImage;
         [SerializeField] private TextMeshProUGUI textMesh;
-        [SerializeField] private Vector2 draggingOffset;
-        [SerializeField] private float draggingZOffset;
-
+        
         [Header("Shop interactions")]
-        [SerializeField] private Image unAvailable;
-        [SerializeField] private GameObject pricePopUp;
-        [SerializeField] private GameObject notAffordableIndicador;
-        [SerializeField] private TextMeshProUGUI priceText;
+        [SerializeField] private GameObject infoPopUp;
+        [SerializeField] private TextMeshProUGUI nameText;
+        [SerializeField] private TextMeshProUGUI typeText;
+        [SerializeField] private TextMeshProUGUI weightText;
 
         private InventorySlot inventorySlot;
         private RectTransform iconTransform;
@@ -37,11 +36,9 @@ namespace Jega.InventorySystem
             iconTransform = iconImage.GetComponent<RectTransform>();
             originalPosition = iconTransform.anchoredPosition;
 
-            unAvailable.gameObject.SetActive(false);
-            pricePopUp.SetActive(false);
+            infoPopUp.SetActive(false);
 
             inventorySlot.OnSlotUpdated += UpdateSlot;
-            inventorySlot.OnSlotUpdated += UpdateAvailability;
             
             inventorySlot.OnPointerEnterEvent += OnEnterPointer;
             inventorySlot.OnPointerExitEvent += OnExitPointer;
@@ -49,7 +46,6 @@ namespace Jega.InventorySystem
         private void OnDestroy()
         {
             inventorySlot.OnSlotUpdated -= UpdateSlot;
-            inventorySlot.OnSlotUpdated -= UpdateAvailability;
             
             inventorySlot.OnPointerEnterEvent -= OnEnterPointer;
             inventorySlot.OnPointerExitEvent -= OnExitPointer;
@@ -57,8 +53,8 @@ namespace Jega.InventorySystem
 
         private void OnDisable()
         {
-            if (pricePopUp.gameObject.activeSelf)
-                pricePopUp.gameObject.gameObject.SetActive(false);
+            if (infoPopUp.gameObject.activeSelf)
+                infoPopUp.gameObject.gameObject.SetActive(false);
         }
 
         private void UpdateSlot()
@@ -72,19 +68,14 @@ namespace Jega.InventorySystem
                 {
                     iconImage.sprite = InventoryItem.Icon;
                     textMesh.text = inventorySlot.ItemAmount.ToString();
+                    nameText.text = InventoryItem.Name;
+                    typeText.text = InventoryItem.Type.ToString();
+                    weightText.text = InventoryItem.Weight.ToString("0");
                 }
             }
             ResetIconPosition();
         }
 
-        private void UpdateAvailability()
-        {
-            if (InventoryItem == null)
-            {
-                unAvailable.gameObject.SetActive(false);
-                return;
-            }
-        }
         private void ResetIconPosition()
         {
             iconTransform.anchoredPosition = originalPosition;
@@ -93,14 +84,13 @@ namespace Jega.InventorySystem
 
         private void OnEnterPointer()
         {
-            pricePopUp.gameObject.SetActive(true);
+            infoPopUp.gameObject.SetActive(true);
             int price = 0;
-            priceText.text = price.ToString();
         }
         private void OnExitPointer()
         {
-            if (pricePopUp.gameObject.activeSelf)
-                pricePopUp.gameObject.gameObject.SetActive(false);
+            if (infoPopUp.gameObject.activeSelf)
+                infoPopUp.gameObject.gameObject.SetActive(false);
         }
     }
 

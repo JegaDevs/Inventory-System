@@ -25,7 +25,7 @@ namespace Jega
         {
             hits = new RaycastHit[5];
             rb = GetComponent<Rigidbody>();
-            bodyCollider = GetComponent<Collider>();
+            bodyCollider = GetComponentInChildren<Collider>();
         }
 
 
@@ -47,6 +47,7 @@ namespace Jega
             if (mainCamera == null || backpack == null)
                 Start();
             mousePosition = Input.mousePosition - GetScreenPosition();
+            transform.rotation = Quaternion.identity;
             rb.isKinematic = true;
             bodyCollider.isTrigger = true;
             Cursor.visible = false;
