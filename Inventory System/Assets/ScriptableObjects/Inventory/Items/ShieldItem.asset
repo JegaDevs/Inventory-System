@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ShieldItem
   m_EditorClassIdentifier: 
   Name: Shield
-  Type: 0
+  Type: 1
   Weight: 1.5
   Icon: {fileID: 21300000, guid: e2991788cff5a464591495b7f2d3e1fa, type: 3}
   Prefab: {fileID: 8928671695010521353, guid: a11720af639d4d6448c529cd8e0afbe2, type: 3}

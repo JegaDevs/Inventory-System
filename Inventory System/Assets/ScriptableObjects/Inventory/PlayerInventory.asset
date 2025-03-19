@@ -19,6 +19,7 @@ MonoBehaviour:
     Amount: 1
   - Item: {fileID: 11400000, guid: 4f42cf1284a14d1419fde87becd46fc9, type: 2}
     Amount: 1
+  slotTypes: 010302
   numberOfSlots: 3
   itemCollection: {fileID: 11400000, guid: aa33c8d73caa82b40ac00015f311f77a, type: 2}
   inventorySaveKey: PlayerInventory

@@ -9,7 +9,6 @@ namespace Jega.InventorySystem
 {
     public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
-        public static SlotSwitch OnRequestOwnedSlotsSwitch;
         public static ItemTransaction OnItemRemoved;
         public delegate void SlotSwitch(Inventory inventory, InventorySlot slotOrigin, InventorySlot slotDestination);
         public delegate void ItemTransaction(InventoryItem item, int amount);

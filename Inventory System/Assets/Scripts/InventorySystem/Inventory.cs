@@ -38,14 +38,12 @@ namespace Jega.InventorySystem
         {
             sessionService = ServiceProvider.GetService<SessionService>();
             InitialInvetorySetup();
-
-            InventorySlot.OnRequestOwnedSlotsSwitch += SwitchOwnedSlots;
+            
             InventorySlot.OnItemRemoved += LoseItemAmount;
         }
 
         protected virtual void OnDestroy()
         {
-            InventorySlot.OnRequestOwnedSlotsSwitch -= SwitchOwnedSlots;
             InventorySlot.OnItemRemoved -= LoseItemAmount;
         }
 
@@ -142,20 +140,6 @@ namespace Jega.InventorySystem
 
 
         #region Inventories interactions
-        private void SwitchOwnedSlots(Inventory inventoryManager, InventorySlot original, InventorySlot destination)
-        {
-            if (inventoryManager != this) return;
-
-            Slot originSlot = slots.Find(a => a.SlotManager == original);
-            Slot destinationSlot = slots.Find(a => a.SlotManager == destination);
-
-            slots[originSlot.Index] = new Slot(originSlot.SlotManager, originSlot.Index, destinationSlot.StartingItem, InventorySaveKey, destinationSlot.ItemId);
-            slots[destinationSlot.Index] = new Slot(destinationSlot.SlotManager, destinationSlot.Index, originSlot.StartingItem, InventorySaveKey, originSlot.ItemId);
-
-            OnSlotUpdated?.Invoke(this, slots[originSlot.Index].SlotManager, slots[originSlot.Index].StartingItem, originSlot.Index);
-            OnSlotUpdated?.Invoke(this, slots[destinationSlot.Index].SlotManager, slots[destinationSlot.Index].StartingItem, destinationSlot.Index);
-        }
-
         protected virtual void GainItemAmount(InventoryItem item, int amount)
         {
             int previousOwned = item.GetCustomSavedAmount(InventorySaveKey, 0);
@@ -172,7 +156,14 @@ namespace Jega.InventorySystem
                 StartingItem startingItem = new StartingItem(item);
                 for (int i = 0; i < NumberOfSlots; i++)
                 {
+                    bool isValidSlot = false;
                     if (slots[i].IsEmpty)
+                    {
+                        if(i < inventoryData.slotTypes.Count && 
+                           (inventoryData.slotTypes[i] == InventoryItem.ItemType.Undefined || inventoryData.slotTypes[i] == item.Type))
+                        isValidSlot = true;
+                    }
+                    if (isValidSlot)
                     {
                         Slot currentSlot = slots[i];
                         int storedItemIndex = ItemCollection.IndexOf(startingItem.Item);
