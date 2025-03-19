@@ -40,15 +40,17 @@ namespace Jega
             return mainCamera.WorldToScreenPoint(newPosition);
         }
 
-        private void OnMouseDown()
+        public void OnMouseDown()
         {
+            if (mainCamera == null || backpack == null)
+                Start();
             mousePosition = Input.mousePosition - GetScreenPosition();
             rb.isKinematic = true;
             bodyCollider.isTrigger = true;
             Cursor.visible = false;
         }
 
-        private void OnMouseDrag()
+        public void OnMouseDrag()
         {
             var newPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition - mousePosition);
             newPosition.z = backpack.position.z;
@@ -56,7 +58,7 @@ namespace Jega
             transform.position = newPosition;
         }
 
-        private void OnMouseUp()
+        public void OnMouseUp()
         {
             Cursor.visible = true;  
             bool success = false;

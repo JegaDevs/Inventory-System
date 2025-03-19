@@ -7,7 +7,6 @@ namespace Jega
 {
     public class SessionService : IService
     {
-        public Action OnCoinsUpdate;
         public int Priority => 0;
         private ClientInventory currentClientInventory;
         
@@ -15,6 +14,7 @@ namespace Jega
         public ClientInventory CurrentClientInventory => currentClientInventory;
         public Camera GameCamera;
         public Transform BackpackTransform;
+        public Transform ItemsParent;
 
         public static SessionService Service => ServiceProvider.GetService<SessionService>();
         public void Preprocess()

@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Sword
   Type: 0
-  Weight: 1
+  Weight: 1.5
   Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  Prefab: {fileID: 7903627062806279136, guid: 435fc1f4fbee98f4ca1a1c79fca9785c, type: 3}

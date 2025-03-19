@@ -42,11 +42,7 @@ namespace Jega.InventorySystem
 
             inventorySlot.OnSlotUpdated += UpdateSlot;
             inventorySlot.OnSlotUpdated += UpdateAvailability;
-            sessionService.OnCoinsUpdate += UpdateAvailability;
-
-            inventorySlot.OnStartDrag += StartDrag;
-            inventorySlot.OnStayDrag += StayDrag;
-            inventorySlot.OnExitDrag += ExitDrag;
+            
             inventorySlot.OnPointerEnterEvent += OnEnterPointer;
             inventorySlot.OnPointerExitEvent += OnExitPointer;
         }
@@ -54,11 +50,7 @@ namespace Jega.InventorySystem
         {
             inventorySlot.OnSlotUpdated -= UpdateSlot;
             inventorySlot.OnSlotUpdated -= UpdateAvailability;
-            sessionService.OnCoinsUpdate -= UpdateAvailability;
-
-            inventorySlot.OnStartDrag -= StartDrag;
-            inventorySlot.OnStayDrag -= StayDrag;
-            inventorySlot.OnExitDrag -= ExitDrag;
+            
             inventorySlot.OnPointerEnterEvent -= OnEnterPointer;
             inventorySlot.OnPointerExitEvent -= OnExitPointer;
         }
@@ -96,28 +88,6 @@ namespace Jega.InventorySystem
         private void ResetIconPosition()
         {
             iconTransform.anchoredPosition = originalPosition;
-        }
-
-
-        private void StartDrag(PointerEventData eventData)
-        {
-            iconTransform.SetParent(UIService.Service.CurrentUIParent.transform, false);
-            iconTransform.SetAsLastSibling();
-            textMesh.gameObject.SetActive(false);
-        }
-        private void StayDrag(PointerEventData eventData)
-        {
-            Vector3 newPosition = eventData.position;
-            iconTransform.position = newPosition;
-            iconTransform.anchoredPosition += draggingOffset;
-        }
-        private void ExitDrag(bool sucess)
-        {
-            iconTransform.SetParent(transform, false);
-            iconTransform.SetAsFirstSibling();
-            textMesh.gameObject.SetActive(true);
-            if (!sucess)
-                ResetIconPosition();
         }
 
 

@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1987e795c2109734493347c4d530ba1d, type: 3}
   m_Name: PlayerInventory
   m_EditorClassIdentifier: 
-  startingItems:
-  - Item: {fileID: 11400000, guid: f78bbe3ca30a75844ac7a22b69bd73c6, type: 2}
-    Amount: 1
+  startingItems: []
   numberOfSlots: 3
   itemCollection: {fileID: 11400000, guid: aa33c8d73caa82b40ac00015f311f77a, type: 2}
   inventorySaveKey: PlayerInventory

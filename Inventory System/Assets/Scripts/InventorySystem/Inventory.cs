@@ -34,11 +34,13 @@ namespace Jega.InventorySystem
             InitialInvetorySetup();
 
             InventorySlot.OnRequestOwnedSlotsSwitch += SwitchOwnedSlots;
+            InventorySlot.OnItemRemoved += LoseItemAmount;
         }
 
         protected virtual void OnDestroy()
         {
             InventorySlot.OnRequestOwnedSlotsSwitch -= SwitchOwnedSlots;
+            InventorySlot.OnItemRemoved -= LoseItemAmount;
         }
 
         protected virtual void OnEnable()

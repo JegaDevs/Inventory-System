@@ -10,17 +10,11 @@ namespace Jega.InventorySystem
     public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         public static SlotSwitch OnRequestOwnedSlotsSwitch;
-        public static SlotSwitchInventories OnRequestClothingInventorySwitch;
-        public static ItemTransaction OnItemBought;
-        public static ItemTransaction OnItemSold;
+        public static ItemTransaction OnItemRemoved;
         public delegate void SlotSwitch(Inventory inventory, InventorySlot slotOrigin, InventorySlot slotDestination);
-        public delegate void SlotSwitchInventories(Inventory inventoryOrigin, Inventory inventoryDestination, InventoryItem itemOrigin, InventoryItem itemDest);
-        public delegate void ItemTransaction(Inventory shopInventory, InventoryItem item, int amount);
+        public delegate void ItemTransaction(InventoryItem item, int amount);
 
         public Action OnSlotUpdated;
-        public Action<PointerEventData> OnStartDrag;
-        public Action<PointerEventData> OnStayDrag;
-        public Action<bool> OnExitDrag;
         public Action OnPointerEnterEvent;
         public Action OnPointerExitEvent;
 
@@ -28,7 +22,7 @@ namespace Jega.InventorySystem
 
         private bool isEmpty;
         private int itemAmount;
-        private bool isDragging;
+        private DragAndDropItem dragAndDropItem;
 
         private int slotIndex;
         private Inventory inventoryManager;
@@ -43,11 +37,6 @@ namespace Jega.InventorySystem
         private void Awake()
         {
             sessionService = ServiceProvider.GetService<SessionService>();
-        }
-        private void OnEnable()
-        {
-            if (isDragging)
-                OnExitDrag?.Invoke(false);
         }
         private void OnDestroy()
         {
@@ -77,40 +66,26 @@ namespace Jega.InventorySystem
         }
 
         #region Draging Behavior
-        public void OnBeginDrag(PointerEventData eventData)
+        public async void OnBeginDrag(PointerEventData eventData)
         {
             if (isEmpty) return;
-            isDragging = true;
-            OnStartDrag?.Invoke(eventData);
+            dragAndDropItem = Instantiate(inventoryItem.Prefab, sessionService.ItemsParent).GetComponent<DragAndDropItem>();
+            dragAndDropItem.transform.position = sessionService.BackpackTransform.position;
+            dragAndDropItem.OnMouseDown();
         }
 
         public void OnDrag(PointerEventData eventData)
         {
             if (isEmpty) return;
-            OnStayDrag?.Invoke(eventData);
+            dragAndDropItem.OnMouseDrag();
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
             if (isEmpty) return;
-            isDragging = false;
-            GameObject destination = eventData.pointerCurrentRaycast.gameObject;
-            HandleSlotSwapInteractions(destination);
-        }
-
-        private void HandleSlotSwapInteractions(GameObject destination)
-        {
-            bool sucess = false;
-            if (destination != null && destination.TryGetComponent(out InventorySlot newSlot) && newSlot != this)
-            {
-                if (inventoryManager == newSlot.inventoryManager)
-                {
-                    OnRequestOwnedSlotsSwitch?.Invoke(inventoryManager, this, newSlot);
-                    sucess = true;
-                }
-            }
-
-            OnExitDrag?.Invoke(sucess);
+            dragAndDropItem.OnMouseUp();
+            dragAndDropItem = null;
+            OnItemRemoved ?.Invoke(inventoryItem, 1);
         }
 
         #endregion
