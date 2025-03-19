@@ -70,7 +70,7 @@ namespace Jega.InventorySystem
                     textMesh.text = inventorySlot.ItemAmount.ToString();
                     nameText.text = InventoryItem.Name;
                     typeText.text = InventoryItem.Type.ToString();
-                    weightText.text = InventoryItem.Weight.ToString("00");
+                    weightText.text = InventoryItem.Weight.ToString("0.0");
                 }
             }
             ResetIconPosition();
