@@ -16,6 +16,7 @@ namespace Jega.Services
         private UIServiceData uiData;
         private List<UIState> activeUIStates;
 
+        public GameObject CurrentUIParent => currentUIParent;
         public List<UIState> ActiveUIStates { get => activeUIStates; }
         public static UIService Service => ServiceProvider.GetService<UIService>();
         public const int TargetAllLayers = -1;

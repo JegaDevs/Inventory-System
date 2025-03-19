@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using JegaCore;
 
-namespace Jega.BlueGravity
+namespace Jega
 {
     [RequireComponent((typeof(Rigidbody)))]
     public class CharacterController : MonoBehaviour
@@ -30,11 +30,7 @@ namespace Jega.BlueGravity
             {
                 float targetAngle = Mathf.Atan2(velocityVector.x, velocityVector.z) * Mathf.Rad2Deg;
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, targetAngle, 0), characterStats.RotationVelocity * Time.deltaTime);
-
-                body.velocity = transform.forward * characterStats.MovementVelocity;
             }
-            else
-                body.velocity = Vector3.zero;
         }
 
         private void FixedUpdate()
