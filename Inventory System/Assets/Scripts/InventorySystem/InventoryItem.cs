@@ -14,7 +14,7 @@ namespace Jega.InventorySystem
 
         public int ID => id;
 
-        public enum ItemType : byte { Weapon, Clothing, Object }
+        public enum ItemType : byte { Weapon, Drink, Object }
         
         public int GetCustomSavedAmount(string customKey, int startingAmount)
         {
