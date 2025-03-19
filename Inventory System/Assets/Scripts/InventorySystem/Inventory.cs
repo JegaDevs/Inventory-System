@@ -7,7 +7,7 @@ using JegaCore;
 namespace Jega.InventorySystem
 {
     /// <summary>
-    /// Generic Inventory class. Handles all main slot management logic, shouldbe used 
+    /// Generic Inventory class. Handles all main slot management logic, should be used 
     /// as a base class for inventory variants.
     /// </summary>
     public class Inventory : MonoBehaviour
@@ -176,6 +176,7 @@ namespace Jega.InventorySystem
                     }
                 }
             }
+            ServerService.Service.RequestServerItemEvent(item, null, null);
         }
         protected virtual void LoseItemAmount(InventoryItem item, int amount)
         {
@@ -184,6 +185,7 @@ namespace Jega.InventorySystem
             int newOwned = previousOwned - amount;
             item.SetCustomSavedAmount(InventorySaveKey, newOwned);
             UpdateTargetSlot(slotIndex);
+            ServerService.Service.RequestServerItemEvent(item, null, null);
         }
         #endregion
 

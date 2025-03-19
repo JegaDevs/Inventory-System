@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Jega.InventorySystem;
+using UnityEngine.Networking;
 
 namespace Jega
 {
@@ -26,6 +27,7 @@ namespace Jega
             rb = GetComponent<Rigidbody>();
             bodyCollider = GetComponent<Collider>();
         }
+
 
         private void Start()
         {

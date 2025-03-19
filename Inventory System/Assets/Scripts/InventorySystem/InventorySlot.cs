@@ -85,7 +85,7 @@ namespace Jega.InventorySystem
             if (isEmpty) return;
             dragAndDropItem.OnMouseUp();
             dragAndDropItem = null;
-            OnItemRemoved ?.Invoke(inventoryItem, 1);
+            OnItemRemoved?.Invoke(inventoryItem, 1);
         }
 
         #endregion
