@@ -37,7 +37,7 @@ namespace Jega.InventorySystem
         protected virtual void Awake()
         {
             sessionService = ServiceProvider.GetService<SessionService>();
-            InitialInvetorySetup();
+            InitialInventorySetup();
             
             InventorySlot.OnItemRemoved += LoseItemAmount;
         }
@@ -53,7 +53,7 @@ namespace Jega.InventorySystem
         }
 
         #region Initial Setup
-        private void InitialInvetorySetup()
+        private void InitialInventorySetup()
         {
             slots = new List<Slot>();
             List<StartingItem> unfilledStartingItems = new List<StartingItem>();

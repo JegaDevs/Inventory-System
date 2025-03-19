@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using UnityEditor;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ namespace Jega.InventorySystem
         public float Weight;
         public Sprite Icon;
         public GameObject Prefab;
-        private int id;
+        [SerializeField, ReadOnly] private int id;
 
         public int ID => id;
 

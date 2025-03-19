@@ -58,11 +58,6 @@ namespace Jega
             while (Input.GetMouseButton(0) == true)
                 yield return null;
         
-            finish();
-        }
-
-        private void finish()
-        {
             var myCustomPointerData = new PointerEventData(EventSystem.current)
             {
                 position = Input.mousePosition
@@ -96,7 +91,7 @@ namespace Jega
                 if(slotItem == null)
                     continue;
                 foreach (var backpackVisualPair in backpackVisualPairs)
-                    if(slotItem.ID == backpackVisualPair.item.ID)
+                    if(slotItem.ID == backpackVisualPair.item.ID && slot.SlotManager.ItemAmount > 0)
                         backpackVisualPair.visualItem.SetActive(true);
             }
         }
