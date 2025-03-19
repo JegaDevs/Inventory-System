@@ -12,6 +12,7 @@ namespace Jega.InventorySystem
 
         public ReadOnlyCollection<InventoryItem> Collection => collection.AsReadOnly();
 
+#if UNITY_EDITOR
         [Button]
         public void UpdateIds()
         {
@@ -20,5 +21,6 @@ namespace Jega.InventorySystem
                 collection[i].SetID(i);
             }
         }
+#endif
     }
 }

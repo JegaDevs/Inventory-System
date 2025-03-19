@@ -25,11 +25,12 @@ namespace Jega.InventorySystem
             PlayerPrefs.SetInt(customKey + name + "_ItemAmount", startingAmount);
         }
 
+        #if UNITY_EDITOR
         public void SetID(int newID)
         {
             id = newID;
             EditorUtility.SetDirty(this);
         }
-
+        #endif  
     }
 }
