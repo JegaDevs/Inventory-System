@@ -43,6 +43,7 @@ namespace Jega
             {
                 OnSucess?.Invoke();
                 JegaDebug.LogVerbose("Server success receiving data from item: " + item.name);
+                JegaDebug.LogVerbose(www.downloadHandler.text);
             }
             www.Dispose();
         }
