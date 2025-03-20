@@ -26,8 +26,6 @@ namespace Jega
         private void Awake()
         {
             SessionService.Service.BackpackTransform = backPackVisual.transform;
-            playerInventory = SessionService.Service.CurrentClientInventory;
-            playerInventory.OnSlotUpdated += UpdateBackpackVisuals;
         }
 
         private void OnDestroy()
@@ -38,6 +36,8 @@ namespace Jega
         private IEnumerator Start()
         {
             InventoryToggle.SetActive(false);
+            playerInventory = SessionService.Service.CurrentClientInventory;
+            playerInventory.OnSlotUpdated += UpdateBackpackVisuals;
             yield return null;
             UpdateBackpackVisuals();
         }
@@ -84,15 +84,16 @@ namespace Jega
         {
             foreach (var backpackVisualPair in backpackVisualPairs)
                 backpackVisualPair.visualItem.SetActive(false);
-
+            
             foreach (var slot in inventory.Slots)
             {
                 var slotItem = slot.Item;
                 if(slotItem == null)
                     continue;
                 foreach (var backpackVisualPair in backpackVisualPairs)
-                    if(slotItem.ID == backpackVisualPair.item.ID && slot.SlotManager.ItemAmount > 0)
+                    if (slotItem.ID == backpackVisualPair.item.ID && slot.SlotManager.ItemAmount > 0) 
                         backpackVisualPair.visualItem.SetActive(true);
+                    
             }
         }
     }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Jega.InventorySystem;
+using JegaCore;
 using TMPro;
 using UnityEngine;
 
@@ -32,9 +33,18 @@ namespace Jega
             UpdateWeightText();
         }
 
-        private async void UpdateWeightText()
+        private void UpdateWeightText()
         {
-            await Task.Yield();
+            GlobalMonoBehaviour.HostCoroutine(UpdateWeightCoroutine());
+        }
+
+        private void UpdateWeightText(Inventory inventory1, InventorySlot slot1, Inventory.StartingItem startingitem,
+            int slotindex) => UpdateWeightText();
+
+        private IEnumerator UpdateWeightCoroutine()
+        {
+            yield return null;
+            
             float totalWeight = 0;
             foreach (var slot in inventory.Slots)
             {
@@ -43,8 +53,5 @@ namespace Jega
             }
             weightText.text = preText + totalWeight.ToString("0.0");
         }
-
-        private void UpdateWeightText(Inventory inventory1, InventorySlot slot1, Inventory.StartingItem startingitem,
-            int slotindex) => UpdateWeightText();
     }
 }
